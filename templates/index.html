@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+        <!-- 手机适配 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>OCR Picture Process Service</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+    <!-- 图片放大 Modal -->
+<div id="imgModal" class="modal" onclick="closeModal(event)">
+    <span class="modal-close">&times;</span>
+    <img class="modal-img" id="modalImage">
+</div>
+</head>
+<body>
+<div class="container">
+    <h1>OCR Picture Process Service</h1>
+
+    <div class="card">
+ <div class="file-upload">
+    <div class="file-label">
+        <span class="file-icon">📷</span>
+        <span class="file-text">Choose Picture</span>
+
+        <!-- 关键：input 直接在里面 -->
+        <input
+            type="file"
+            id="imageInput"
+            accept="image/*"
+            onchange="previewImage()"
+        >
+    </div>
+
+    <p id="fileName" class="file-name">No picture selected</p>
+</div>
+
+
+        <div class="options">
+            <label>
+                <input type="radio" name="mode" value="img_txt" checked>
+                Picture → Text
+            </label>
+            <label>
+                <input type="radio" name="mode" value="img_img">
+                Picture → Picture
+            </label>
+        </div>
+
+        <div class="options">
+            <label>
+                <input type="checkbox" id="whiteBg" checked>
+                White background（Picture → Picture mode only）
+            </label>
+        </div>
+
+        <button onclick="submitImage()">Starting processing</button>
+        <p id="status"></p>
+                <button id="downloadBtn" onclick="downloadResult()" disabled>
+            Download Result
+        </button>
+    </div>
+
+    <!-- 预览区 -->
+<div class="preview">
+    <div class="preview-box">
+        <h3>Picture Preview</h3>
+        <div class="preview-content">
+            <img id="inputPreview" onclick="openModal(this)">
+        </div>
+    </div>
+
+    <div class="preview-box">
+        <h3>Result Preview</h3>
+        <div class="preview-content">
+            <img id="outputImage" onclick="openModal(this)">
+            <pre id="outputText"></pre>
+        </div>
+
+        <!-- 🔽 下载按钮 -->
+
+    </div>
+</div>
+</div>
+
+<script src="/static/main.js"></script>
+</body>
+</html>
